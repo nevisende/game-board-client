@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="my-4 text-center">
+    <h2><%= @recipe.name%></h2>
+  </div>
+  <div>
+    <div>
+      <div class="d-flex justify-content-between p-4">
+        <p class="fs-3">
+          <span class="fw-bold"> Preparation time: </span> <%= @recipe.preparation_time %> min
+        </p>
+        <div class="flex-row form-check form-switch d-flex ">
+          <p> Public: <span>
+          <% if @recipe.user.id == current_user.id %>
+             <%= form_with url:recipe_path(@recipe.id), :method => :patch do |f| %>
+                <%= f.check_box :public, class:"mx-4 form-check-input",  onchange: "this.form.submit();", checked: @recipe.public  %>
+              <% end %>
+          <% else %>
+            <input type="checkbox" class="mx-4 form-check-input", checked=<%= @recipe.public%> , onchange="this.checked = !this.checked"/>
+          <% end %>
+          </span>
+
+        </p>
+      </div>
+      </div>
+    </div>
+    <div class="fs-3">
+      <span class="p-4 fw-bold"> Cooking time:</span> <%= @recipe.cooking_time %> min 
+    </div>
+    <div class="d-flex justify-content-around mt-4">
+      <div>
+        <a class= "btn btn-primary">Generate shopping list</a>
+      </div>
+      <div>
+        <a class= "btn btn-primary">Add ingredient</a>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+
+<table class="table table-hover table-striped table-bordered m-4">
+  <thead class="bg-color">
+    <tr>
+      <th>Food</th>
+      <th>Quantity</th>
+      <th>Value</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr> <td>I'll add </td><td>the related datas and methods </td><td>when my coding parter </td><td>completed her parts</td></tr>
+  </tbody>
+</table>
+
