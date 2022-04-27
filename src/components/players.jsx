@@ -57,16 +57,20 @@ const MyPager = (props) => {
 };
 
 const cellWithBackGround = (props) => {
-  const examplePrice = props.dataItem.rankDiff < 0;
-  const icon = examplePrice ? (
+  const { rankDiff } = props.dataItem
+  const icon = (rankDiff < 0)  ? (
     <span className="k-icon k-i-sort-desc-sm" />
-  ) : (
+  ) : (rankDiff > 0) ? (
     <span className="k-icon k-i-sort-asc-sm" />
+    ) : (
+        <span className="k-icon k-i-equal" />
   );
   const style = {
-    backgroundColor: examplePrice
+    backgroundColor: (rankDiff < 0)
       ? "rgb(243, 23, 0, 0.32)"
-      : "rgb(55, 180, 0,0.32)",
+      : (rankDiff > 0)
+        ? "rgb(55, 180, 0,0.32)"
+        : "yellow",
   };
   const field = props.field || "";
   return (
@@ -98,7 +102,7 @@ const Players = () => {
     <div>
       <Grid
         style={{
-          "min-height": "100vh",
+          minHeight: "100vh",
         }}
         data={players.slice(page.skip, page.take + page.skip)}
         skip={page.skip}
@@ -110,9 +114,9 @@ const Players = () => {
       >
         <GridColumn field="country" title="Country"/>
         <GridColumn field="name" title="Player Name"/>
+        <GridColumn field="rank"  title="Current Rank"/>
         <GridColumn field="money" title="Money"/>
-        <GridColumn field="rank" cell={cellWithBackGround} title="Current Rank"/>
-        
+        <GridColumn field="rankDiff" cell={cellWithBackGround} title="Daily Diff"/>
       </Grid>
     </div>
   );
